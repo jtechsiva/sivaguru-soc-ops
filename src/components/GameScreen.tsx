@@ -1,5 +1,6 @@
 import type { BingoSquareData } from '../types';
 import { BingoBoard } from './BingoBoard';
+import { ThemeToggle } from './ThemeToggle';
 
 interface GameScreenProps {
   board: BingoSquareData[];
@@ -17,28 +18,35 @@ export function GameScreen({
   onReset,
 }: GameScreenProps) {
   return (
-    <div className="flex flex-col min-h-full bg-gray-50">
+    <div className="flex flex-col min-h-full cozy-bg">
       {/* Header */}
-      <header className="flex items-center justify-between p-3 bg-white border-b border-gray-200">
+      <header className="flex items-center justify-between p-3 cozy-card">
         <button
           onClick={onReset}
-          className="text-gray-500 text-sm px-3 py-1.5 rounded active:bg-gray-100"
+          className="text-[var(--text-muted)] text-sm px-3 py-1.5 rounded"
         >
           ← Back
         </button>
-        <h1 className="font-bold text-gray-900">Bingo Mixer</h1>
-        <div className="w-16"></div>
+
+        <div className="flex items-center gap-3">
+          <img src="/assets/coffee.svg" alt="Coffee" className="w-8 h-8" />
+          <h1 className="font-bold cozy-title">Bingo Mixer</h1>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <ThemeToggle />
+        </div>
       </header>
 
       {/* Instructions */}
-      <p className="text-center text-gray-500 text-sm py-2 px-4">
+      <p className="text-center cozy-muted text-sm py-2 px-4">
         Tap a square when you find someone who matches it.
       </p>
 
       {/* Bingo indicator */}
       {hasBingo && (
-        <div className="bg-amber-100 text-amber-800 text-center py-2 font-semibold text-sm">
-          🎉 BINGO! You got a line!
+        <div className="text-center py-2 font-semibold text-sm" style={{ background: 'linear-gradient(90deg, rgba(197,138,58,0.12), rgba(76,138,103,0.06))' }}>
+          ☕️ BINGO! You got a line!
         </div>
       )}
 

@@ -1,0 +1,136 @@
+:root {
+  /* Default (light) theme variables */
+  --color-primary: #2563eb;
+  --color-dark: #111827;
+  --color-bg: #ffffff;
+  --color-card: #ffffff;
+  --color-accent: #f59e0b;
+  --color-success: #16a34a;
+  --color-overlay: rgba(0,0,0,0.45);
+
+  --text-strong: var(--color-dark);
+  --text-muted: #6b7280;
+
+  --radius-md: 8px;
+  --shadow-soft: 0 6px 16px rgba(0,0,0,0.06);
+}
+
+/* Cozy overrides when theme is active */
+[data-theme="cozy"] :root,
+[data-theme="cozy"] {
+  --color-primary: #6B3E2B; /* Warm Brown */
+  --color-dark: #3B2314; /* Dark Roast */
+  --color-bg: #F7EFE7; /* Cream Background */
+  --color-card: #FFF8F2; /* Slightly lighter card */
+  --color-accent: #C58A3A; /* Caramel Accent */
+  --color-success: #4C8A67; /* Plant Green */
+  --color-overlay: rgba(10,10,10,0.45);
+
+  --text-strong: var(--color-dark);
+  --text-muted: #6b5a52;
+
+  --radius-md: 12px;
+  --shadow-soft: 0 8px 20px rgba(58,34,20,0.08);
+}
+
+/* Helpers */
+.cozy-bg {
+  background-color: var(--color-bg);
+  color: var(--text-strong);
+}
+
+.cozy-card {
+  background: var(--color-card);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-soft);
+  border: 1px solid rgba(59,35,20,0.06);
+}
+
+.cozy-cta {
+  background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+  color: #fff;
+  border-radius: 10px;
+  padding: 0.6rem 1rem;
+}
+
+.cozy-modal-overlay {
+  background: var(--color-overlay);
+}
+
+.cozy-check {
+  background: var(--color-accent);
+  color: white;
+  border-radius: 9999px;
+}
+
+/* Typography helpers */
+.cozy-title {
+  color: var(--text-strong);
+  font-weight: 700;
+}
+
+.cozy-subtitle {
+  color: var(--text-muted);
+}
+
+.cozy-muted {
+  color: var(--text-muted);
+}
+
+.cozy-heading {
+  color: var(--color-accent);
+}
+
+.cozy-emoji {
+  font-size: 3rem;
+}
+
+/* Bingo square helpers */
+.sq-base {
+  background: var(--color-card);
+  border: 1px solid rgba(59,35,20,0.06);
+  border-radius: 8px;
+  padding: 0.5rem;
+  min-height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* Text inside squares: responsive smaller font and robust wrapping */
+.sq-text {
+  font-size: clamp(0.65rem, 1.4vw, 0.85rem);
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  hyphens: auto;
+  white-space: pre-wrap;
+}
+
+.sq-marked {
+  background: linear-gradient(180deg, var(--color-accent), rgba(0,0,0,0.02));
+  color: #fff;
+  border-color: rgba(0,0,0,0.06);
+}
+
+.sq-winning {
+  background: var(--color-success);
+  color: white;
+  border-color: rgba(0,0,0,0.06);
+}
+
+.sq-free {
+  font-weight: 700;
+}
+
+.sq-checkmark {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background: rgba(255,255,255,0.12);
+  color: white;
+  padding: 0.12rem 0.35rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+}
