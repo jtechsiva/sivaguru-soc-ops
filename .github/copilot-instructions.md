@@ -1,35 +1,56 @@
-# Project Guidelines
+## Development Checklist (mandatory)
 
-## Mandatory Development Checklist
-- [ ] `npm run lint`
-- [ ] `npm run build`
-- [ ] `npm run test`
+- [ ] Lint: `npm run lint`
+- [ ] Build: `npm run build`
+- [ ] Test: `npm test`
 
-## Stack
-- React 19, TypeScript, Vite, and Tailwind CSS v4.
-- Use the Tailwind v4 guidance in `.github/instructions/tailwind-4.instructions.md` when changing styling.
+# Copilot / Agent Instructions (workspace)
 
-## Architecture
-- App entry is `src/main.tsx`, and screen orchestration lives in `src/App.tsx`.
-- Keep UI rendering in `src/components/`.
-- Keep game state, localStorage persistence, and screen transitions in `src/hooks/useBingoGame.ts`.
-- Keep bingo rules and board mutations in pure utility functions in `src/utils/bingoLogic.ts`.
-- Keep shared domain types in `src/types/index.ts` and question content in `src/data/questions.ts`.
+Purpose
+-------
+Short guidelines for agents working in this repo. Link to canonical docs rather than copying them.
 
-## Build And Test
-- Use Node.js 22 or newer.
-- Install dependencies with `npm install`.
-- Start local development with `npm run dev`.
-- Run `npm run lint` and `npm run test` for code changes.
-- Run `npm run build` for shipped behavior, config, or deployment-path changes.
+Quick links
+-----------
+- [package.json](package.json) — scripts and deps
+- [vite.config.ts](vite.config.ts) — dev/build settings
+- [.github/instructions/tailwind-4.instructions.md](.github/instructions/tailwind-4.instructions.md) — Tailwind v4 notes
+- [workshop/GUIDE.md](workshop/GUIDE.md) — onboarding & tasks
 
-## Conventions
-- Preserve the separation between presentational components, the `useBingoGame` state hook, and pure bingo logic utilities.
-- Keep board updates immutable and keep bingo logic side-effect free so tests stay focused on `src/utils/bingoLogic.ts`.
-- Preserve SSR guards and runtime validation around localStorage access in `src/hooks/useBingoGame.ts`.
-- Follow the existing pattern of defining component prop interfaces close to each component.
-- Do not hardcode deployment paths that assume `/`; `vite.config.ts` sets a GitHub Pages base path from `VITE_REPO_NAME`.
+Common commands
+---------------
+- `npm install`
+- `npm run dev` (Vite)
+- `npm run build` (runs `tsc -b` then `vite build`)
+- `npm test` (Vitest)
+- `npm run lint` (ESLint)
 
-## Docs
-- Link to `README.md` for local setup and commands instead of repeating it.
-- Link to `workshop/GUIDE.md` and the `workshop/` part files instead of duplicating workshop guidance.
+Quick facts
+-----------
+- Tech: React + TypeScript + Vite; Tailwind CSS v4 for styling.
+- Key code: `src/components`, `src/hooks`, `src/utils`.
+- Tests: `src/test/setup.ts` and Vitest (jsdom).
+
+Conventions
+-----------
+- Link, don't embed: prefer linking to `workshop/` or `docs/`.
+- Check `.github/instructions/tailwind-4.instructions.md` before changing styles.
+- Keep PRs small and focused to a single purpose.
+
+Agent guidance
+--------------
+- Scan for existing files before creating new ones; reuse names/locations when possible.
+- Verify changes locally with `npm run dev` and run `npm test`.
+- When editing docs, prefer updating `workshop/GUIDE.md` or adding short files in `.github/instructions/`.
+
+Example prompts
+---------------
+- Update the Bingo UI to add accessible ARIA attributes and tests.
+- Add an `onboard-new-contributor.agent.md` that runs `npm install` and `npm run dev` and links to `workshop/01-setup.md`.
+
+Next suggestions
+----------------
+- Add a short `onboard-new-contributor.agent.md` under `.github/agents/`.
+- Add a PR checklist file under `.github/instructions/` for reviewers.
+
+Maintainers: prefer small diffs and link to workshop/docs for background.
