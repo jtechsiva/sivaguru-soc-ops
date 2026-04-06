@@ -31,6 +31,7 @@ function App() {
       {showBingoModal && (
         <BingoModal onDismiss={dismissModal} />
       )}
+      
     </>
   );
 }
