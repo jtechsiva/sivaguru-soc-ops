@@ -1,0 +1,22 @@
+{
+  "hooks": {
+    "name": "Stop Test Gate",
+    "description": "Workspace stop hook: run tests and block agent finish if tests fail.",
+    "when": "stop",
+    "run": [
+      {
+        "name": "Install dependencies",
+        "shell": "npm ci"
+      },
+      {
+        "name": "Run tests",
+        "shell": "npm test"
+      }
+    ],
+    "onFailure": {
+      "action": "block",
+      "message": "Tests failed. Agent must not finish — review failures and choose next action."
+    },
+    "timeoutMs": 600000
+  }
+}

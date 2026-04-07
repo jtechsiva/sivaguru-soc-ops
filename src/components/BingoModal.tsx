@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useId, useRef } from 'react';
 
 interface BingoModalProps {
   onDismiss: () => void;
@@ -7,7 +7,7 @@ interface BingoModalProps {
 export function BingoModal({ onDismiss }: BingoModalProps) {
   const modalRef = useRef<HTMLDivElement | null>(null);
   const prevActiveRef = useRef<HTMLElement | null>(null);
-  const titleIdRef = useRef('bingo-title-' + Math.random().toString(36).slice(2, 9));
+  const titleId = useId();
 
   useEffect(() => {
     prevActiveRef.current = document.activeElement as HTMLElement | null;
@@ -28,7 +28,7 @@ export function BingoModal({ onDismiss }: BingoModalProps) {
 
       if (e.key === 'Tab') {
         // trap focus inside modal
-        const focusableEls = Array.from(modal.querySelectorAll<HTMLElement>('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])')).filter(Boolean);
+        const focusableEls = Array.from(modal!.querySelectorAll<HTMLElement>('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])')).filter(Boolean);
         if (focusableEls.length === 0) return;
         const first = focusableEls[0];
         const last = focusableEls[focusableEls.length - 1];
@@ -52,7 +52,10 @@ export function BingoModal({ onDismiss }: BingoModalProps) {
       // restore focus to previous element
       try {
         prevActiveRef.current?.focus();
-      } catch {}
+      } catch (error: unknown) {
+        // Intentionally ignore errors when restoring focus
+        void error;
+      }
     };
   }, [onDismiss]);
 
@@ -62,13 +65,13 @@ export function BingoModal({ onDismiss }: BingoModalProps) {
         ref={modalRef}
         role="dialog"
         aria-modal="true"
-        aria-labelledby={titleIdRef.current}
+        aria-labelledby={titleId}
         className="cozy-card p-6 max-w-xs w-full text-center animate-[bounce_0.5s_ease-out]"
       >
         <div className="mb-4 cozy-emoji" aria-hidden>
           ☕️
         </div>
-        <h2 id={titleIdRef.current} className="text-3xl font-bold cozy-heading mb-2">
+        <h2 id={titleId} className="text-3xl font-bold cozy-heading mb-2">
           BINGO!
         </h2>
         <p className="cozy-muted mb-6">You completed a line!</p>

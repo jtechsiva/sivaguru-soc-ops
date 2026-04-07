@@ -98,6 +98,13 @@ function getWinningLines(): BingoLine[] {
     squares: [4, 8, 12, 16, 20],
   });
 
+  // Four Corners (all four corners marked)
+  lines.push({
+    type: 'fourCorners',
+    index: 0,
+    squares: [0, 4, 20, 24],
+  });
+
   return lines;
 }
 

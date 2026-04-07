@@ -311,6 +311,70 @@ describe('bingoLogic', () => {
       });
       expect(checkBingo(board)).toBeNull();
     });
+
+    // Four Corners tests
+    it('should detect all four corners marked as fourCorners', () => {
+      const board = generateBoard();
+      // Mark all four corners: top-left (0), top-right (4), bottom-left (20), bottom-right (24)
+      [0, 4, 20, 24].forEach((i) => {
+        board[i].isMarked = true;
+      });
+      const result = checkBingo(board);
+      expect(result).not.toBeNull();
+      expect(result?.type).toBe('fourCorners');
+      expect(result?.squares).toEqual([0, 4, 20, 24]);
+    });
+
+    it('should not return fourCorners when only 3 corners are marked', () => {
+      const board = generateBoard();
+      // Mark only 3 corners (missing bottom-right)
+      [0, 4, 20].forEach((i) => {
+        board[i].isMarked = true;
+      });
+      const result = checkBingo(board);
+      if (result) {
+        expect(result.type).not.toBe('fourCorners');
+      }
+    });
+
+    it('should not return fourCorners when only top-left and bottom-right corners are marked', () => {
+      const board = generateBoard();
+      // Mark only diagonal corners (not all four)
+      [0, 24].forEach((i) => {
+        board[i].isMarked = true;
+      });
+      const result = checkBingo(board);
+      if (result) {
+        expect(result.type).not.toBe('fourCorners');
+      }
+    });
+
+    it('should win with fourCorners even if no row, column, or diagonal is complete', () => {
+      const board = generateBoard();
+      // Mark only the four corners (no other squares)
+      [0, 4, 20, 24].forEach((i) => {
+        board[i].isMarked = true;
+      });
+      const result = checkBingo(board);
+      expect(result).not.toBeNull();
+      expect(result?.type).toBe('fourCorners');
+    });
+
+    it('should return null when no corners are marked', () => {
+      const board = generateBoard();
+      // Don't mark any corners
+      expect(checkBingo(board)).toBeNull();
+    });
+
+    it('should return fourCorners pattern with correct index', () => {
+      const board = generateBoard();
+      // Mark all four corners
+      [0, 4, 20, 24].forEach((i) => {
+        board[i].isMarked = true;
+      });
+      const result = checkBingo(board);
+      expect(result?.index).toBe(0); // Using index 0 as convention for the single fourCorners pattern
+    });
   });
 
   describe('getWinningSquareIds', () => {
